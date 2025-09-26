@@ -22,27 +22,3 @@ body { background: var(--bg); color: #f7f7f7; }
 }
 body{ font-family: var(--font-sans); }
 
-/* Effet neige minimal */
-.fx-snow{
-  position:absolute; inset:0; pointer-events:none; overflow:hidden;
-  /* réglages via variables (optionnels) */
-  --fx-snow-size-1: 6px;   --fx-snow-size-2: 8px;   --fx-snow-size-3: 10px;
-  --fx-snow-speed-1: 14s;  --fx-snow-speed-2: 20s;  --fx-snow-speed-3: 26s;
-  --fx-snow-opacity: .9;
-
-  opacity: var(--fx-snow-opacity);
-  background:
-    radial-gradient(#fff 1px, transparent 1px) 0 0/var(--fx-snow-size-1) var(--fx-snow-size-1),
-    radial-gradient(#fff 1.2px, transparent 1.2px) 0 0/var(--fx-snow-size-2) var(--fx-snow-size-2),
-    radial-gradient(#fff 1.6px, transparent 1.6px) 0 0/var(--fx-snow-size-3) var(--fx-snow-size-3);
-  animation:
-    snowLayer1 var(--fx-snow-speed-1) linear infinite,
-    snowLayer2 var(--fx-snow-speed-2) linear infinite reverse,
-    snowDrift   var(--fx-snow-speed-3) ease-in-out infinite;
-}
-@keyframes snowLayer1 { to { background-position: 0 600px, 0 0, 0 0; } }
-@keyframes snowLayer2 { to { background-position: 0 0, 0 800px, 0 0; } }
-@keyframes snowDrift  { 0%,100% { transform: translateY(0) }
-                        50%     { transform: translateY(14px) } }
-@media (prefers-reduced-motion: reduce){ .fx-snow{ animation:none; } }
-

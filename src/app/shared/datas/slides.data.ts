@@ -38,6 +38,7 @@ export const SLIDES: Slide[] = [
 overlays: [
       { x: 30, y: 25, text: 'La Lune', anchor: 'center', w: 40, style: { 'font-family': '"Bauer Bodoni", Georgia, "Times New Roman", serif',
            'font-size': 'clamp(28px, 6vw, 100px)' }}
+          
     ]},
   // ➜ Ici on zoome à 200vw
 { type: 'page', title: "backcover", image: '/assets/illustrations/2.png', imageClass: `${FREE_IMG} mx-auto`, imageStyle: zoomVW(70) },
