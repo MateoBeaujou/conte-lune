@@ -1,0 +1,62 @@
+.rootvars { --bg: #0b1020; --fg: #f7f7f7; }
+.reveal-root { width:100vw; height:100vh; background:var(--bg); color:var(--fg); display:flex; align-items:center; justify-content:center; }
+.reveal-container { position:relative; width:100%; height:100%; overflow:hidden; }
+.slides { display:flex; height:100%; transition:transform 480ms cubic-bezier(.22,.9,.31,1); }
+.slide { min-width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; }
+.slide-inner { width:100%; max-width:1200px; padding:2rem; box-sizing:border-box; display:flex; align-items:center; justify-content:center; }
+
+.cover-slide { text-align:center; }
+.cover-slide h1 { font-size:3.2rem; margin-bottom:0.5rem }
+
+.page-slide { display:center; gap:2rem; align-items:center; justify-content:center; }
+.page-media img { max-width:640px; width:60vw; max-height:70vh; object-fit:contain; border-radius:8px; box-shadow:0 12px 40px rgba(0,0,0,0.6); }
+.page-caption { max-width:480px; }
+
+.back-slide { text-align:center }
+
+.reveal-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.45); color:#fff; border:0; width:64px; height:64px; border-radius:50%; font-size:2.2rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:40 }
+.reveal-nav.prev { left:16px }
+.reveal-nav.next { right:16px }
+
+.reveal-progress { position:absolute; left:0; right:0; bottom:18px; height:6px; background:rgba(255,255,255,0.06); z-index:30 }
+.reveal-bar { height:100%; background:linear-gradient(90deg,#ffd86b,#ff6bcb); width:0%; transition:width 300ms ease }
+
+.reveal-thumbs { position:absolute; bottom:36px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:50 }
+.reveal-thumbs button { background:transparent; color:var(--fg); border:1px solid rgba(255,255,255,0.12); padding:6px 8px; border-radius:4px; cursor:pointer }
+.reveal-thumbs button.active { background:rgba(255,255,255,0.12); }
+
+@media (max-width:900px){
+  .page-slide { flex-direction:column; }
+  .page-media img { width:90vw; max-height:40vh }
+  .reveal-nav { width:48px; height:48px; font-size:1.6rem }
+}
+
+/* helper classes for per-slide image sizing (use in slides.data.ts via imageClass) */
+.img-wide { width:75vw; max-width:1100px; max-height:82vh; }
+.img-small { width:38vw; max-width:520px; max-height:60vh; }
+.img-tall { width:48vw; max-width:720px; max-height:92vh; }
+
+.page-media { position: relative; }
+.img-overlay {
+  position: absolute;
+  /* par défaut on positionne depuis le coin haut-gauche */
+  pointer-events: none; /* le texte ne bloque pas les clics */
+}
+.img-overlay-inner{
+  pointer-events: auto; /* repasse à interactif si besoin (liens, tooltip...) */
+  color: #ffbb00;
+  padding: .25rem .5rem;
+  border-radius: .375rem;
+  line-height: 1.2;
+  font-size: clamp(.75rem, 1.8vw, 1rem);
+  max-width: 50ch;
+  backdrop-filter: blur(2px);
+}
+
+/* Police titre Bodoni pour cet overlay précis */
+.overlay-title {
+  font-family: url("/assets/fonts/BauerBodoni-Regular.otf") format("opentype"), "Bauer Bodoni", serif;
+  font-weight: 400px;
+  letter-spacing: .5px;
+  font-size: clamp(28px, 100vw, 100px); /* ajuste si besoin */
+}

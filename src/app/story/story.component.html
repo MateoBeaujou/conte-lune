@@ -1,0 +1,67 @@
+<main class="reveal-root">
+  <div class="reveal-container">
+    <div class="slides" [style.transform]="'translateX(' + (-page() * 100) + 'vw)'">
+      @for (s of slides; track $index; let i = $index) {
+        <section class="slide">
+          <div class="slide-inner">
+            @switch (s.type) {
+              @case ('cover') {
+                <div class="cover-slide">
+                  <h1>{{ s.title }}</h1>
+                  <p>{{ s.text }}</p>
+                </div>
+              }
+              @case ('page') {
+                <div class="page-slide">
+                  <div class="page-media">
+                    <img [src]="s.image"
+                         [ngClass]="s.imageClass"
+                         [ngStyle]="s.imageStyle"
+                         [attr.alt]="'illustration ' + i" />
+                    <!-- TEXTE(S) PAR-DESSUS L’IMAGE -->
+                    @if (s.overlays) {
+                      @for (ov of s.overlays; track $index) {
+                        <div class="img-overlay"
+                             [ngClass]="ov.class"
+                             [ngStyle]="ov.style"
+                             [style.left.%]="ov.x || 0"
+                             [style.top.%]="ov.y || 0"
+                             [style.width.%]="ov.w || null"
+                             [style.transform]="ov.anchor === 'center' ? 'translate(-50%, -50%)' : null">
+                          <p class="img-overlay-inner">
+                            {{ ov.text }}
+                          </p>
+                        </div>
+                      }
+                    }
+                    <!-- /overlays -->
+                  </div>
+                </div>
+              }
+              @case ('back') {
+                <div class="back-slide">
+                  <h3>{{ s.title }}</h3>
+                  <p>{{ s.text }}</p>
+                </div>
+              }
+            }
+          </div>
+        </section>
+      }
+    </div>
+
+    <button class="reveal-nav prev" (click)="prev()" aria-label="Précédent">‹</button>
+    <button class="reveal-nav next" (click)="next()" aria-label="Suivant">›</button>
+
+    <div class="reveal-progress">
+      <div class="reveal-bar" [style.width]="((page() + 1) / total * 100) + '%'">
+      </div>
+    </div>
+
+    <div class="reveal-thumbs">
+      @for (s of slides; track $index; let i = $index) {
+        <button (click)="go(i)" [class.active]="i === page()">{{ i + 1 }}</button>
+      }
+    </div>
+  </div>
+</main>
