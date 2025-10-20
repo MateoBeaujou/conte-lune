@@ -36,23 +36,249 @@ const zoomVW = (vw: number) => ({
 export const SLIDES: Slide[] = [
 { type: 'page', title:"cover", image: '/assets/illustrations/0.png', imageClass: `${FREE_IMG} mx-auto`, imageStyle: zoomVW(70), 
 overlays: [
-      { x: 30, y: 25, text: 'La Lune', anchor: 'center', w: 40, style: { 'font-family': '"Bauer Bodoni", Georgia, "Times New Roman", serif',
-           'font-size': 'clamp(28px, 6vw, 100px)' }}
-          
-    ]},
+  {
+    x: 30,
+    y: 25,
+    text: `Il était autrefois un pays où les nuits étaient sombres, et le ciel couvrait cette contrée comme un drap noir. La lune n'y sortait jamais, pas une seule étoile ne scintillait dans l'obscurité.
+Les ténèbres y régnaient comme à la création du monde.`,
+    anchor: 'center',
+    w: 40
+  }
+]
+},
+    
   // ➜ Ici on zoome à 200vw
-{ type: 'page', title: "backcover", image: '/assets/illustrations/2.png', imageClass: `${FREE_IMG} mx-auto`, imageStyle: zoomVW(70) },
+{
+  type: 'page',
+  title: 'Page 4',
+  text: 'Texte de la page 4',
+  image: '/assets/illustrations/1.png',          // ← fond statique
+  imageClass: `${FREE_IMG}`,                      // pas d’anim ici
+  imageStyle: zoomVW(70),
+  overlays: [
+    // Arbre au-dessus du fond, qui bouge
+   
+  {
+  x: 0, y: 0, w: 0,                // ignorés (on pilote en px)
+  text: '',
+  anchor: 'topleft',
+  class: 'light-square px-pos',    // <-- position au pixel + glow animé
+  style: {
+    /* --- Position & taille en PX --- */
+    '--px-x': '788px',             // position X depuis le coin haut-gauche du slide
+    '--px-y': '290px',             // position Y (px)
+    '--px-w': '20px',              // largeur du carré (px)
+    '--px-h': '50px',              // hauteur du carré (px)
+    '--px-rot': '0deg',            // rotation si besoin
 
+    /* --- Apparence du carré lumineux (entièrement réglable) --- */
+    '--ls-fill': '#EDCB6A',        // couleur
+    '--ls-alpha': '100%',
+    '--ls-radius': '4px',
+    '--ls-border': '0px',
+    '--ls-border-color': 'rgba(237,203,106,0.6)',
+
+    
+
+    zIndex: '8'
+  }
+},
+{
+  x: 0, y: 0, w: 0,                // ignorés (on pilote en px)
+  text: '',
+  anchor: 'topleft',
+  class: 'light-square px-pos',    // <-- position au pixel + glow animé
+  style: {
+    /* --- Position & taille en PX --- */
+    '--px-x': '385px',             // position X depuis le coin haut-gauche du slide
+    '--px-y': '395px',             // position Y (px)
+    '--px-w': '55px',              // largeur du carré (px)
+    '--px-h': '59px',              // hauteur du carré (px)
+    '--px-rot': '0deg',  
+    '--ls-delay': '1000ms',
+    
+
+    /* --- Apparence du carré lumineux (entièrement réglable) --- */
+    '--ls-fill': '#EDCB6A',        // couleur
+    '--ls-alpha': '100%',
+    '--ls-radius': '4px',
+    '--ls-border': '0px',
+    '--ls-border-color': 'rgba(237,203,106,0.6)',
+    
+    
+
+    zIndex: '8'
+  }
+},
+{
+  x: 0, y: 0, w: 0,                // ignorés (on pilote en px)
+  text: '',
+  anchor: 'topleft',
+  class: 'light-square px-pos',    // <-- position au pixel + glow animé
+  style: {
+    /* --- Position & taille en PX --- */
+    '--px-x': '518px',             // position X depuis le coin haut-gauche du slide
+    '--px-y': '570px',             // position Y (px)
+    '--px-w': '59px',              // largeur du carré (px)
+    '--px-h': '50px',              // hauteur du carré (px)
+    '--px-rot': '0deg',  
+    '--ls-delay': '700ms',
+    
+
+    /* --- Apparence du carré lumineux (entièrement réglable) --- */
+    '--ls-fill': '#EDCB6A',        // couleur
+    '--ls-alpha': '100%',
+    '--ls-radius': '4px',
+    '--ls-border': '0px',
+    '--ls-border-color': 'rgba(237,203,106,0.6)',
+    
+    
+
+    zIndex: '8'
+  }
+},
+
+  {
+    x: 70,
+    y: 15,
+    text: `Il était autrefois un pays où les nuits étaient sombres, et le ciel couvrait cette contrée comme un drap noir. La lune n'y sortait jamais, pas une seule étoile ne scintillait dans l'obscurité.
+Les ténèbres y régnaient comme à la création du monde.`,
+    anchor: 'center',
+    w: 40
+  }
+
+
+
+
+
+  ]
+},
 
   // ➜ Ici à 50vw (change 50 par ce que tu veux)
-  { type: 'page', title: 'Page 2', text: 'Texte de la page 2', image: '/assets/illustrations/3.png', imageClass: FREE_IMG, imageStyle: zoomVW(70), },
+  { type: 'page', title: 'Page 2', text: 'Texte de la page 2', image: '/assets/illustrations/2.2.png', imageClass: FREE_IMG, imageStyle: zoomVW(70), 
+
+  overlays: [
+    {
+  x: 0, y: 68, w: 23, text: '',
+  anchor: 'center',
+  class: 'anim-bush-lr',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/buisson1.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // centre l'overlay
+    aspectRatio: '1 / 1',               // ajuste si ton PNG n'est pas carré
+    '--shake-duration': '2500ms',        // vitesse
+    '--shake-x': '-1.6%',               // amplitude vers la gauche (le reste est relatif)
+    '--shake-delay': '0ms',
+    zIndex: '8'
+  }
+},
+{
+  x: 78, y: 66, w: 23, text: '',
+  anchor: 'center',
+  class: 'anim-bush-lr',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/buisson2.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // centre l'overlay
+    aspectRatio: '1 / 1',               // ajuste si ton PNG n'est pas carré
+    '--shake-duration': '2500ms',        // vitesse
+    '--shake-x': '-1.6%',               // amplitude vers la gauche (le reste est relatif)
+    '--shake-delay': '180ms',
+    zIndex: '8',
+     
+  }
+},
+{
+  x: 74, y: -10, w: 23, text: '',
+  anchor: 'center',
+  class: 'anim-tree',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/arbre1.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // car anchor center
+    aspectRatio: '2 / 3',               // ← mets le vrai ratio de ton PNG (ex: 2:3)
+    display: 'block',
+    '--sway-deg': '1deg',
+    '--sway-duration': '3000ms',
+    zIndex: '6'
+  }
+},
+{
+  x: 14, y: 9, w: 22, text: '',
+  anchor: 'center',
+  class: 'anim-tree',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/arbre2.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // car anchor center
+    aspectRatio: '2 / 3',               // ← mets le vrai ratio de ton PNG (ex: 2:3)
+    display: 'block',
+    '--sway-deg': '1deg',
+    '--sway-duration': '3000ms',
+    '--shake-delay': '2800ms',
+    zIndex: '6'
+  }
+},
+{
+  x: 20, y: 72, w: 30, text: '',          // ← passe 8 → 10 (plus grand)
+  anchor: 'center',
+  class: 'walk-ltr',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/perso.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)',   // ton base-transform si tu veux
+    aspectRatio: '2 / 3',                  // ratio de ton PNG
+    '--walk-distance': '45vw',
+    '--walk-duration': '59s',
+    zIndex: '6'
+  }
+},
+{
+    x: 55,
+    y: 25,
+    text: `Quatre jeunes hommes de ce pays partirent un jour en voyage et arrivèrent dans un autre royaume où tous les soirs, lorsque le soleil se couchait derrière la montagne, s'allumait dans les cimes d'un chêne un disque étincelant qui répandait au loin une douce lumière.`,
+    anchor: 'center',
+    w: 40
+  }
+
+
+]
+  },
 
   // Les autres slides restent “normaux” (tu peux leur ajouter imageClass: FREE_IMG, imageStyle: zoomVW(…) quand tu veux)
   { type: 'page', title: 'Page 3', text: 'Texte de la page 3', 
-    image: '/assets/illustrations/4.png' ,
+    image: '/assets/illustrations/3.png' ,
     imageStyle: zoomVW(70) ,
     overlays: [
-      { x: 30, y: 25, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. MSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.', anchor: 'center', w: 40 }
+      { x: 30, y: 25, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. MSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.', anchor: 'center', w: 40 },
+    
+      // Dans "overlays" de la page voulue
+{
+  x: 50, y: 40, w: 0, text: '',
+  anchor: 'center',
+  class: 'moon-circle-halo',
+  style: {
+    left: '50%', top: '40%',            // positionne le halo
+    transform: 'translate(-50%, -50%)', // centre le cercle
+    zIndex: '6'
+  }
+}
+
+
+
+
+
     ]
   },
   { type: 'page', title: 'Page 4', text: 'Texte de la page 4', image: '/assets/illustrations/5.png' , imageStyle: zoomVW(50) },

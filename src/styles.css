@@ -9,16 +9,153 @@ body { background: var(--bg); color: #f7f7f7; }
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Bauer Bodoni";
-  src: url("/assets/fonts/BauerBodoni-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+
 /* Police par défaut du site */
 :root{
   --font-sans: "Avenir Next", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 body{ font-family: var(--font-sans); }
 
+/* --- Position/tailles au pixel près --- */
+.px-pos {
+  /* place depuis le coin haut-gauche du slide */
+  transform:
+    translate(var(--px-x, 0px), var(--px-y, 0px))
+    rotate(var(--px-rot, 0deg));
+  width:  var(--px-w, 40px);
+  height: var(--px-h, 40px);
+}
+
+/* Carré lumineux (personnalisable à fond) */
+.light-square {
+  position: relative;
+  display: block;
+  background: color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-alpha, 100%), transparent) ;
+  border-radius: var(--ls-radius, 6px);
+  border: var(--ls-border, 0px) solid var(--ls-border-color, rgba(237,203,106,0.6));
+  /* halo externe + interne */
+  box-shadow:
+    inset 0 0 var(--ls-blur-inset, 0px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-inset-alpha, 0%), transparent),
+    0 0 0 var(--ls-glow, 14px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-glow-alpha, 18%), transparent),
+    0 0 var(--ls-blur, 18px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-blur-alpha, 55%), transparent);
+  animation: lsPulse var(--ls-speed, 1600ms) var(--ls-ease, ease-in-out) var(--ls-delay, 0ms) infinite ;
+}
+
+@keyframes lsPulse {
+  0%   { filter: brightness(var(--ls-bright-min, 0.95)); }
+  50%  { filter: brightness(var(--ls-bright-max, 1.06)); 
+         box-shadow:
+          inset 0 0 calc(var(--ls-blur-inset, 0px) * 1.1) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-inset-alpha, 0%), transparent),
+          0 0 0 calc(var(--ls-glow, 14px) * var(--ls-glow-spread, 1.4)) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-glow-alpha, 0%), transparent),
+          0 0 calc(var(--ls-blur, 18px) * 1.2) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-blur-alpha, 70%), transparent); }
+  100% { filter: brightness(var(--ls-bright-min, 0.95)); }
+}
+
+@media (prefers-reduced-motion: reduce) { .light-square { animation: none !important; } }
+
+
+
+/* Buisson : secoue seulement en X (reste parfaitement droit) */
+@keyframes bushShakeLR {
+  0%   { transform: translateX(0) }
+  12%  { transform: translateX(var(--shake-x, -1.4%)) }
+  24%  { transform: translateX(1.1%) }
+  36%  { transform: translateX(-0.9%) }
+  48%  { transform: translateX(0.7%) }
+  60%  { transform: translateX(-1.0%) }
+  72%  { transform: translateX(0.6%) }
+  84%  { transform: translateX(-0.4%) }
+  100% { transform: translateX(0) }
+}
+.anim-bush-lr {
+  animation: bushShakeLR var(--shake-duration, 900ms) ease-in-out var(--shake-delay, 0ms) infinite;
+  /* pas de rotate, pas de translateY -> reste droit */
+  transform-origin: bottom center;
+}
+
+/* accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .anim-bush-lr { animation: none !important; }
+}
+
+
+
+/* ===== Arbre qui tangue (balancement souple) ===== */
+@keyframes treeSway {
+  0%   { transform: rotate(calc(-1 * var(--sway-deg, 4deg))) }
+  50%  { transform: rotate(var(--sway-deg, 4deg)) }
+  100% { transform: rotate(calc(-1 * var(--sway-deg, 4deg))) }
+}
+
+.anim-tree {
+  animation: treeSway var(--sway-duration, 2200ms) ease-in-out var(--sway-delay, 0ms) infinite;
+  transform-origin: bottom center; /* pivot au pied du tronc */
+}
+
+/* Variante vent fort (optionnelle) */
+.anim-tree-strong {
+  --sway-deg: 7deg;
+  --sway-duration: 1800ms;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .anim-tree { animation: none !important; }
+}
+
+
+/* Avance de gauche -> droite (conserve ton transform existant) */
+@keyframes walkLTR {
+  from { transform: var(--base-transform, translate(-50%, -50%)) translateX(0); }
+  to   { transform: var(--base-transform, translate(-50%, -50%)) translateX(var(--walk-distance, 40vw)); }
+}
+.walk-ltr {
+  animation: walkLTR var(--walk-duration, 12s) linear var(--walk-delay, 0ms) var(--walk-iter, infinite);
+  will-change: transform;
+}
+
+/* Variante: une seule fois et rester au bout */
+.walk-once {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; /* reste à la fin */
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .walk-ltr { animation: none !important; }
+}
+
+
+/* Halo circulaire — visible, unique animation */
+@keyframes moonCircleHalo {
+  0% {
+    opacity: .52;
+    filter: blur(14px);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: .70;                  /* plus lumineux au milieu */
+    filter: blur(16px);            /* halo un peu plus diffus */
+    transform: translate(-50%, -50%) scale(1.04); /* léger zoom */
+  }
+  100% {
+    opacity: .52;
+    filter: blur(14px);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.moon-circle-halo {
+  width: 22vw;               /* taille du halo (augmente/réduis si besoin) */
+  height: 22vw;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side,
+      rgba(237,203,106,0) 50%,
+      rgba(237,203,106,.42) 72%,
+      rgba(237,203,106,0) 92%);
+  position: absolute;        /* pour l’utiliser en overlay */
+  left: 0; top: 0;
+  animation: moonCircleHalo 1800ms ease-in-out infinite; /* ← L’ANIMATION */
+  pointer-events: none;
+}
