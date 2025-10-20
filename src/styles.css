@@ -146,9 +146,9 @@ body{ font-family: var(--font-sans); }
 }
 
 .moon-circle-halo {
-  width: 22vw;               /* taille du halo (augmente/réduis si besoin) */
-  height: 22vw;
-  border-radius: 50%;
+  width: 8vw;               /* taille du halo (augmente/réduis si besoin) */
+  height: 8vw;
+  border-radius: 8%;
   background:
     radial-gradient(closest-side,
       rgba(237,203,106,0) 50%,
@@ -159,3 +159,99 @@ body{ font-family: var(--font-sans); }
   animation: moonCircleHalo 1800ms ease-in-out infinite; /* ← L’ANIMATION */
   pointer-events: none;
 }
+/* ===== Fumée réaliste simple (2 bouffées douces) ===== */
+@keyframes smokeDrift {
+  0%   { opacity: 0;   transform: translate(-50%, 0) scale(0.7); }
+  12%  { opacity: var(--smk-alpha, .45); }
+  25%  { transform: translate(calc(-50% - 4%), -25%) scale(0.95); }
+  50%  { transform: translate(calc(-50% + 3%), -55%) scale(1.25); }
+  75%  { opacity: calc(var(--smk-alpha, .45) * .65);
+         transform: translate(calc(-50% - 2%), -85%) scale(1.5); }
+  100% { opacity: 0;   transform: translate(-50%, -115%) scale(1.7); }
+}
+
+.smoke-soft {
+  position: relative;
+  width: var(--smk-w, 6vw);          /* largeur zone de fumée */
+  height: var(--smk-h, 20vw);        /* hauteur de montée   */
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* deux bouffées générées en pseudo-éléments */
+.smoke-soft::before,
+.smoke-soft::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: var(--puff-1, 2.6vw);
+  height: var(--puff-1, 2.6vw);
+  border-radius: 50%;
+  background: radial-gradient(50% 60% at 50% 50%,
+    rgba(245,245,245,0.95) 0%,
+    rgba(245,245,245,0.45) 45%,
+    rgba(245,245,245,0.15) 70%,
+    rgba(245,245,245,0.00) 85%);
+  filter: blur(var(--smk-blur, 1.2px));
+  transform: translate(-50%, 0) scale(1);
+  opacity: 0;
+  animation: smokeDrift var(--rise-1, 4.6s) ease-out infinite;
+  animation-delay: var(--delay-1, 0s);
+}
+
+/* seconde bouffée, un peu plus grande et décalée */
+.smoke-soft::after {
+  width: var(--puff-2, 3.0vw);
+  height: var(--puff-2, 3.0vw);
+  animation-duration: var(--rise-2, 5.0s);
+  animation-delay: var(--delay-2, 1.2s);
+}
+
+/* Variante plus visible (optionnelle) */
+.smoke-soft--bold {
+  --smk-alpha: .55;
+  --smk-blur: 1.6px;
+  --puff-1: 3.0vw;
+  --puff-2: 3.4vw;
+}
+@media (prefers-reduced-motion: reduce) {
+  .smoke-soft::before, .smoke-soft::after { animation: none !important; opacity: .35; }
+}
+
+
+/* Avance en diagonale (droite) + profondeur (monte + scale) */
+@keyframes walkDepthDiag {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: var(--base-transform, translate(-50%, -50%))
+               translateX(0) translateY(0) scale(1);
+  }
+  60% {
+    opacity: 0.95;
+    filter: blur(var(--depth-blur, 0.4px));
+    transform: var(--base-transform, translate(-50%, -50%))
+               translateX(calc(var(--depth-dx, 16vw) * 0.6))
+               translateY(calc(var(--depth-rise, -12vw) * 0.6))
+               scale(calc(1 - (1 - var(--depth-scale, 0.62)) * 0.6));
+  }
+  100% {
+    opacity: var(--depth-opacity, 0.9);
+    filter: blur(var(--depth-blur, 0.4px));
+    transform: var(--base-transform, translate(-50%, -50%))
+               translateX(var(--depth-dx, 16vw))
+               translateY(var(--depth-rise, -12vw))
+               scale(var(--depth-scale, 0.62));
+  }
+}
+
+.walk-depth-diag {
+  animation: walkDepthDiag var(--depth-duration, 9s) ease-in var(--depth-delay, 0ms) var(--depth-iter, infinite);
+  will-change: transform, opacity;
+}
+
+/* Une fois et reste au bout */
+.walk-depth-once { animation-iteration-count: 1; animation-fill-mode: forwards; }
+
+/* Variante : diagonale vers la GAUCHE (si besoin) */
+.walk-depth-left { --depth-dx: -16vw; }

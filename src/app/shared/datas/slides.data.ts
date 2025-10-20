@@ -193,23 +193,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
      
   }
 },
-{
-  x: 74, y: -10, w: 23, text: '',
-  anchor: 'center',
-  class: 'anim-tree',
-  style: {
-    backgroundImage: 'url(/assets/illustrations/arbre1.png)',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    transform: 'translate(-50%, -50%)', // car anchor center
-    aspectRatio: '2 / 3',               // ← mets le vrai ratio de ton PNG (ex: 2:3)
-    display: 'block',
-    '--sway-deg': '1deg',
-    '--sway-duration': '3000ms',
-    zIndex: '6'
-  }
-},
+
 {
   x: 14, y: 9, w: 22, text: '',
   anchor: 'center',
@@ -247,31 +231,115 @@ Les ténèbres y régnaient comme à la création du monde.`,
 {
     x: 55,
     y: 25,
-    text: `Quatre jeunes hommes de ce pays partirent un jour en voyage et arrivèrent dans un autre royaume où tous les soirs, lorsque le soleil se couchait derrière la montagne, s'allumait dans les cimes d'un chêne un disque étincelant qui répandait au loin une douce lumière.`,
+    text: `Quatre jeunes hommes de ce pays partirent un jour en voyage et arrivèrent dans un autre royaume où tous les soirs, lorsque le soleil se couchait derrière la montagne, s'allumait dans les cimes d'un chêne un disque étincelant qui répandait au loin une douce lumière. Cela permettait aux gens de tout bien voir et distinguer, même si la lumière n'était pas aussi forte et éclatante que celle du soleil.
+`,
     anchor: 'center',
-    w: 40
-  }
+    w: 40,
+    style: {
+      zIndex: '8'
+    }
+  },
 
+{
+  x: 85, y: 20, w: 0, text: '',
+  anchor: 'center',
+  class: 'moon-circle-halo',
+  style: {
+    left: '85%', top: '20%',            // positionne le halo
+    transform: 'translate(-50%, -50%)', // centre le cercle
+    zIndex: '8'
+  }
+},
+{ x: 85, y: 20, w: 30, text: '', 
+  style: {
+    transform: 'translate(-50%, -50%)',
+    aspectRatio: '1 / 1',
+    backgroundImage: 'url("/assets/illustrations/arbre1.png")',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    zIndex: '6'
+  }
+},
+
+{ x: 85, y: 20, w: 10, text: '', 
+  style: {
+    transform: 'translate(-50%, -50%)',
+    aspectRatio: '1 / 1',
+    backgroundImage: 'url("/assets/illustrations/lune.png")',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    zIndex: '7'
+  }
+},
 
 ]
   },
 
   // Les autres slides restent “normaux” (tu peux leur ajouter imageClass: FREE_IMG, imageStyle: zoomVW(…) quand tu veux)
   { type: 'page', title: 'Page 3', text: 'Texte de la page 3', 
-    image: '/assets/illustrations/3.png' ,
+    image: '/assets/illustrations/4.png' ,
     imageStyle: zoomVW(70) ,
     overlays: [
       { x: 30, y: 25, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. MSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.', anchor: 'center', w: 40 },
     
-      // Dans "overlays" de la page voulue
-{
-  x: 50, y: 40, w: 0, text: '',
+     {
+  x: 69, y: 28, w: 6, text: '',
   anchor: 'center',
-  class: 'moon-circle-halo',
+  class: 'smoke-soft', // ou 'smoke-soft smoke-soft--bold' si tu veux plus visible
   style: {
-    left: '50%', top: '40%',            // positionne le halo
-    transform: 'translate(-50%, -50%)', // centre le cercle
-    zIndex: '6'
+    transform: 'translate(-50%, -50%)',
+    '--smk-w': '6vw',   // largeur de la zone de fumée
+    '--smk-h': '22vw',  // hauteur de montée
+    '--puff-1': '2.6vw','--puff-2': '3.0vw',
+    '--smk-alpha': '.45','--smk-blur': '1.2px',
+    '--rise-1': '4.6s','--rise-2': '5.0s',
+    '--delay-1': '0s','--delay-2': '1.2s',
+    zIndex: '8'
+  }
+},
+{
+  x: 46, y: 24, w: 6, text: '',
+  anchor: 'center',
+  class: 'smoke-soft', // ou 'smoke-soft smoke-soft--bold' si tu veux plus visible
+  style: {
+    transform: 'translate(-50%, -50%)',
+    '--smk-w': '6vw',   // largeur de la zone de fumée
+    '--smk-h': '22vw',  // hauteur de montée
+    '--puff-1': '2.6vw','--puff-2': '3.0vw',
+    '--smk-alpha': '.45','--smk-blur': '1.2px',
+    '--rise-1': '4.6s','--rise-2': '5.0s',
+    '--delay-2': '0s','--delay-3': '1.2s',
+
+    zIndex: '8'
+  }
+},
+
+{
+  x: 40, y: 74, w: 8, text: '',
+  anchor: 'center',
+  class: 'walk-depth-diag', // ou 'walk-depth-diag walk-depth-once'
+  style: {
+    backgroundImage: 'url(/assets/illustrations/perso.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+
+    /* base */
+    '--base-transform': 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -50%)',
+    aspectRatio: '2 / 3',
+    zIndex: '8',
+
+    /* réglages diagonale + profondeur */
+    '--depth-dx': '18vw',      // distance horizontale vers la DROITE
+    '--depth-rise': '-14vw',   // monte (plus négatif = plus loin)
+    '--depth-scale': '0.6',    // taille finale
+    '--depth-duration': '10s', // plus grand = plus lent/doux
+    '--depth-blur': '0.5px',
+    '--depth-opacity': '0.9',
+    '--depth-iter': 'infinite' // ou '1' avec la classe walk-depth-once
   }
 }
 
@@ -279,8 +347,12 @@ Les ténèbres y régnaient comme à la création du monde.`,
 
 
 
+
+      // Dans "overlays" de la page voulue
+
     ]
   },
+
   { type: 'page', title: 'Page 4', text: 'Texte de la page 4', image: '/assets/illustrations/5.png' , imageStyle: zoomVW(50) },
   { type: 'page', title: 'Page 5', text: 'Texte de la page 5', image: '/assets/illustrations/page-5.jpg' },
   { type: 'page', title: 'Page 6', text: 'Texte de la page 6', image: '/assets/illustrations/page-6.jpg' },
