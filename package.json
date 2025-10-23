@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build --configuration production --base-href /conte-lune/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test"
 
   },
   "prettier": {
