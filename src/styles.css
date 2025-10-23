@@ -134,7 +134,7 @@ body{ font-family: var(--font-sans); }
     transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    opacity: .70;                  /* plus lumineux au milieu */
+    opacity: .100;                  /* plus lumineux au milieu */
     filter: blur(16px);            /* halo un peu plus diffus */
     transform: translate(-50%, -50%) scale(1.04); /* léger zoom */
   }
@@ -219,39 +219,317 @@ body{ font-family: var(--font-sans); }
 }
 
 
-/* Avance en diagonale (droite) + profondeur (monte + scale) */
-@keyframes walkDepthDiag {
+/* Avance en X + rétrécit (option: léger blur/opacité) */
+@keyframes walkXShrink {
   0% {
-    opacity: 1;
-    filter: blur(0);
+    opacity: var(--start-opacity, 1);
+    filter: blur(var(--start-blur, 0));
     transform: var(--base-transform, translate(-50%, -50%))
-               translateX(0) translateY(0) scale(1);
-  }
-  60% {
-    opacity: 0.95;
-    filter: blur(var(--depth-blur, 0.4px));
-    transform: var(--base-transform, translate(-50%, -50%))
-               translateX(calc(var(--depth-dx, 16vw) * 0.6))
-               translateY(calc(var(--depth-rise, -12vw) * 0.6))
-               scale(calc(1 - (1 - var(--depth-scale, 0.62)) * 0.6));
+               translateX(0) scale(var(--start-scale, 1));
   }
   100% {
-    opacity: var(--depth-opacity, 0.9);
-    filter: blur(var(--depth-blur, 0.4px));
+    opacity: var(--end-opacity, 1);          /* ex: 0.9 pour un peu de distance */
+    filter: blur(var(--end-blur, 0));        /* ex: 0.4px pour un effet subtil */
     transform: var(--base-transform, translate(-50%, -50%))
-               translateX(var(--depth-dx, 16vw))
-               translateY(var(--depth-rise, -12vw))
-               scale(var(--depth-scale, 0.62));
+               translateX(var(--walk-distance, 40vw))
+               scale(var(--end-scale, 0.8)); /* ← rétrécit pendant l'avance */
   }
 }
 
-.walk-depth-diag {
-  animation: walkDepthDiag var(--depth-duration, 9s) ease-in var(--depth-delay, 0ms) var(--depth-iter, infinite);
-  will-change: transform, opacity;
+.walk-x-shrink {
+  animation: walkXShrink var(--walk-duration, 12s) linear var(--walk-delay, 0ms) var(--walk-iter, infinite);
+  will-change: transform, opacity, filter;
 }
 
-/* Une fois et reste au bout */
-.walk-depth-once { animation-iteration-count: 1; animation-fill-mode: forwards; }
+/* Une seule fois et rester à la fin (optionnel) */
+.walk-x-once { animation-iteration-count: 1; animation-fill-mode: forwards; }
 
-/* Variante : diagonale vers la GAUCHE (si besoin) */
-.walk-depth-left { --depth-dx: -16vw; }
+
+/* Avance en diagonale : de droite -> gauche en descendant.
+   La direction et l’échelle se règlent via les variables --dx, --dy, --start-scale, --end-scale. */
+@keyframes walkDiag {
+  from {
+    transform: var(--base-transform, translate(-50%, -50%))
+               translate(0, 0)
+               scale(var(--start-scale, 1));
+  }
+  to {
+    transform: var(--base-transform, translate(-50%, -50%))
+               translate(var(--dx, 24vw), var(--dy, -8vw)) /* +X=→ droite, -X=← gauche ; +Y=descend */
+               scale(var(--end-scale, 1));
+  }
+}
+
+.walk-diag {
+  animation: walkDiag var(--dur, 10s) linear var(--delay, 0ms) var(--iter, infinite);
+  will-change: transform;
+}
+
+/* Jouer une seule fois et rester à la fin */
+.walk-once {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+/* Déplacement simple gauche -> droite */
+@keyframes walkX {
+  from { transform: var(--base-transform, translate(-50%, -50%)) translateX(0); }
+  to   { transform: var(--base-transform, translate(-50%, -50%)) translateX(var(--walk-distance, 30vw)); }
+}
+
+.walk-x {
+  animation: walkX var(--walk-duration, 10s) linear var(--walk-delay, 0ms) var(--walk-iter, infinite);
+  will-change: transform;
+}
+
+/* Option pour jouer 1 fois et rester à la fin */
+.walk-once { animation-iteration-count: 1; animation-fill-mode: forwards; }
+
+
+/* ===== Parle (léger hochement + micro squash/stretch) ===== */
+@keyframes talkMotion {
+  0%   { transform: var(--base-transform, translate(-50%, -50%)) translateY(0)       scale(1, 1); }
+  25%  { transform: var(--base-transform, translate(-50%, -50%)) translateY(-1.2%)  scale(1.008, 0.992); }
+  50%  { transform: var(--base-transform, translate(-50%, -50%)) translateY(0.4%)   scale(0.995, 1.005); }
+  75%  { transform: var(--base-transform, translate(-50%, -50%)) translateY(-0.8%)  scale(1.006, 0.994); }
+  100% { transform: var(--base-transform, translate(-50%, -50%)) translateY(0)       scale(1, 1); }
+}
+
+.talk {
+  animation: talkMotion var(--talk-speed, 1100ms) var(--talk-ease, ease-in-out)
+             var(--talk-delay, 0ms) infinite;
+  transform-origin: bottom center; /* pivot sur les pieds */
+  will-change: transform;
+}
+
+/* Option : “pause” (pour couper l’anim quand tu veux) */
+.talk-pause { animation-play-state: paused; }
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) { .talk { animation: none !important; } }
+
+
+@keyframes walkX {
+  from { transform: var(--base-transform, translate(-50%, -50%)) translateX(0); }
+  to   { transform: var(--base-transform, translate(-50%, -50%)) translateX(var(--walk-distance, 30vw)); }
+}
+
+.walk-x {
+  animation: walkX var(--walk-duration, 10s) linear var(--walk-delay, 0ms) var(--walk-iter, infinite);
+  will-change: transform;
+}
+
+/* jouer une seule fois et rester à la fin (optionnel) */
+.walk-once { animation-iteration-count: 1; animation-fill-mode: forwards; }
+
+/* Pulse visible (mêmes noms uniques) */
+@keyframes lunarHaloPulseStrong {
+  0%   { opacity: var(--lh-op-min, .65); filter: blur(var(--lh-blur, 18px)); transform: scale(1); }
+  50%  { opacity: var(--lh-op-max, .95); filter: blur(calc(var(--lh-blur, 18px) * 1.2)); transform: scale(1.05); }
+  100% { opacity: var(--lh-op-min, .65); filter: blur(var(--lh-blur, 18px)); transform: scale(1); }
+}
+
+/* Halo très visible : anneau blanc + couronne dorée + glow externe */
+.lunar-halo-boost {
+  position: relative;
+  width: var(--lh-size, 26vw);
+  height: var(--lh-size, 26vw);
+  border-radius: 50%;
+  pointer-events: none;
+  /* Couronne dorée plus opaque (passe au-dessus des fonds sombres) */
+  background:
+    radial-gradient(closest-side,
+      rgba(237,203,106,0) 46%,
+      rgba(237,203,106,.55) 63%,
+      rgba(237,203,106,.32) 78%,
+      rgba(0,0,0,0) 92%);
+  animation: lunarHaloPulseStrong var(--lh-speed, 1600ms) ease-in-out infinite;
+  /* Sur fonds très chargés, ça aide beaucoup */
+  mix-blend-mode: screen; /* si ton fond est clair et que ça “disparaît”, retire cette ligne */
+}
+
+/* Anneau/blanc et glow externe pour “percer” les fonds */
+.lunar-halo-boost::before,
+.lunar-halo-boost::after {
+  content:"";
+  position:absolute; inset:-10%;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* Anneau blanc fin (très visible) */
+.lunar-halo-boost::before {
+  background:
+    radial-gradient(closest-side,
+      transparent 58%,
+      rgba(255,255,255,.95) 60%,
+      rgba(255,255,255,.55) 64%,
+      transparent 70%);
+  filter: blur(2px);
+}
+
+/* Glow externe large */
+.lunar-halo-boost::after {
+  inset:-22%;
+  background:
+    radial-gradient(60% 70% at 50% 50%,
+      rgba(255,230,170,.45) 0%,
+      rgba(255,180,80,.28) 45%,
+      rgba(0,0,0,0) 80%);
+  filter: blur(var(--lh-glow-blur, 20px));
+  opacity: var(--lh-glow-alpha, .9);
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce){
+  .lunar-halo-boost { animation: none !important; }
+}
+
+/* Personnage qui grimpe le long d'un axe incliné */
+@keyframes climbPath {
+  from {
+    transform: var(--base-transform, translate(-50%, -50%))
+               rotate(var(--climb-angle, -15deg))
+               translate(0, 0);
+  }
+  to {
+    transform: var(--base-transform, translate(-50%, -50%))
+               rotate(var(--climb-angle, -15deg))
+               translate(0, calc(-1 * var(--climb-distance, 35vh)));
+  }
+}
+
+/* ====== Personnage qui grimpe (base) ====== */
+/* Le perso suit un axe incliné (rotate) et se déplace le long de cet axe (translateY) */
+@keyframes climbPath {
+  from {
+    transform: var(--base-transform, translate(-50%, -50%))
+               rotate(var(--climb-angle, -15deg))
+               translate(0, 0);
+  }
+  to {
+    transform: var(--base-transform, translate(-50%, -50%))
+               rotate(var(--climb-angle, -15deg))
+               translate(0, calc(-1 * var(--climb-distance, 35vh)));
+  }
+}
+
+/* 1) Exécution une seule fois (arrive en haut et reste) */
+.climb {
+  animation: climbPath var(--climb-duration, 6s)
+            var(--climb-ease, ease-in-out)
+            var(--climb-delay, 0ms)
+            1 forwards;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+/* 2) Infini en aller-retour (ping-pong) — naturel et fluide */
+.climb-infinite {
+  animation: climbPath var(--climb-duration, 7s)
+            var(--climb-ease, ease-in-out)
+            var(--climb-delay, 0ms)
+            infinite;
+  animation-direction: alternate; /* monte puis redescend */
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+/* 3) Infini toujours vers le haut + reset instantané en bas (flux continu) */
+@keyframes climbLoopUp {
+  0%   { transform: var(--base-transform, translate(-50%, -50%))
+                     rotate(var(--climb-angle, -15deg))
+                     translate(0, 0); }
+  99%  { transform: var(--base-transform, translate(-50%, -50%))
+                     rotate(var(--climb-angle, -15deg))
+                     translate(0, calc(-1 * var(--climb-distance, 35vh))); }
+  100% { transform: var(--base-transform, translate(-50%, -50%))
+                     rotate(var(--climb-angle, -15deg))
+                     translate(0, 0); } /* reset */
+}
+.climb-loop-up {
+  animation: climbLoopUp var(--climb-duration, 7s)
+            linear
+            var(--climb-delay, 0ms)
+            infinite;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+/* (Optionnel) utilitaire pour positionner en pixels au mm près */
+.px-pos {
+  transform:
+    translate(var(--px-x, 0px), var(--px-y, 0px))
+    rotate(var(--px-rot, 0deg));
+  width:  var(--px-w, 90px);
+  height: var(--px-h, 135px);
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .climb, .climb-infinite, .climb-loop-up { animation: none !important; }
+}
+
+/* ===== Ronde 3D (perspective + bascule X/Y) ===== */
+@keyframes round3D {
+  0% {
+    transform:
+      var(--base-transform, translate(-50%, -50%))
+      perspective(var(--rd-persp, 700px))
+      rotateZ(0deg)
+      rotateX(var(--rd-tilt-x, 12deg))
+      rotateY(var(--rd-tilt-y, -6deg))
+      scale(1);
+    filter: brightness(var(--rd-bright-min, .98));
+  }
+  50% {
+    transform:
+      var(--base-transform, translate(-50%, -50%))
+      perspective(var(--rd-persp, 700px))
+      rotateZ(180deg)
+      rotateX(calc(var(--rd-tilt-x, 12deg) * -1))
+      rotateY(calc(var(--rd-tilt-y, -6deg) * -1))
+      scale(1.01); /* micro “souffle” */
+    filter: brightness(var(--rd-bright-max, 1.03));
+  }
+  100% {
+    transform:
+      var(--base-transform, translate(-50%, -50%))
+      perspective(var(--rd-persp, 700px))
+      rotateZ(360deg)
+      rotateX(var(--rd-tilt-x, 12deg))
+      rotateY(var(--rd-tilt-y, -6deg))
+      scale(1);
+    filter: brightness(var(--rd-bright-min, .98));
+  }
+}
+
+.round-dance-3d {
+  animation: round3D var(--rd-duration, 16s)
+             var(--rd-ease, linear)
+             var(--rd-delay, 0ms) infinite;
+  transform-origin: center center;
+  will-change: transform, filter;
+  /* petite ombre elliptique optionnelle sous la ronde */
+  position: relative;
+}
+.round-dance-3d::after {
+  content: "";
+  position: absolute; left: 50%; top: 100%;
+  width: 70%; height: 10%;
+  transform: translate(-50%, -40%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,.25), rgba(0,0,0,0));
+  filter: blur(4px);
+  opacity: var(--rd-shadow, .35);
+  pointer-events: none;
+}
+
+/* Variantes rapides */
+.round3d-slow    { --rd-duration: 22s; }
+.round3d-fast    { --rd-duration: 9s;  }
+.round3d-reverse { animation-direction: reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .round-dance-3d { animation: none !important; }
+}
