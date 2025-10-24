@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__angular-cli__get_best_practices",
+      "mcp__angular-cli__search_documentation",
+      "WebFetch(domain:angular.dev)",
+      "Bash(npm run build:*)",
+      "Bash(npm install)",
+      "mcp__serena__replace_regex"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
