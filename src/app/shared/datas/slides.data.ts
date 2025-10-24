@@ -34,7 +34,7 @@ const zoomVW = (vw: number) => ({
 // const scale = (n: number) => ({ transform: `scale(${n})`, transformOrigin: 'center' });
 
 export const SLIDES: Slide[] = [
-{ type: 'page', title:"cover", image: '/assets/illustrations/cover.png', imageClass: `${FREE_IMG} mx-auto`, imageStyle: zoomVW(70), 
+{ type: 'page', title:"cover", image: 'assets/illustrations/cover.png', imageClass: `${FREE_IMG} mx-auto`, imageStyle: zoomVW(70), 
 
 },
     
@@ -43,7 +43,7 @@ export const SLIDES: Slide[] = [
   type: 'page',
   title: 'Page 4',
   text: 'Texte de la page 4',
-  image: '/assets/illustrations/1.png',          // ← fond statique
+  image: 'assets/illustrations/1.png',          // ← fond statique
   imageClass: `${FREE_IMG}`,                      // pas d’anim ici
   imageStyle: zoomVW(70),
   overlays: [
@@ -155,7 +155,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
 },
 
   // ➜ Ici à 50vw (change 50 par ce que tu veux)
-  { type: 'page', title: 'Page 2', text: 'Texte de la page 2', image: '/assets/illustrations/2.2.png', imageClass: FREE_IMG, imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 2', text: 'Texte de la page 2', image: 'assets/illustrations/2.2.png', imageClass: FREE_IMG, imageStyle: zoomVW(70), 
 
   overlays: [
     {
@@ -163,7 +163,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   anchor: 'center',
   class: 'anim-bush-lr',
   style: {
-    backgroundImage: 'url(/assets/illustrations/buisson1.png)',
+    backgroundImage: 'url(assets/illustrations/buisson1.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -180,7 +180,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   anchor: 'center',
   class: 'anim-bush-lr',
   style: {
-    backgroundImage: 'url(/assets/illustrations/buisson2.png)',
+    backgroundImage: 'url(assets/illustrations/buisson2.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -199,7 +199,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   anchor: 'center',
   class: 'anim-tree',
   style: {
-    backgroundImage: 'url(/assets/illustrations/arbre2.png)',
+    backgroundImage: 'url(assets/illustrations/arbre2.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -217,7 +217,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   anchor: 'center',
   class: 'walk-ltr',
   style: {
-    backgroundImage: 'url(/assets/illustrations/perso.png)',
+    backgroundImage: 'url(assets/illustrations/perso.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -273,7 +273,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/arbre1.png")',
+    backgroundImage: 'url("assets/illustrations/arbre1.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -285,7 +285,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/lune.png")',
+    backgroundImage: 'url("assets/illustrations/lune.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -298,7 +298,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
 
   // Les autres slides restent “normaux” (tu peux leur ajouter imageClass: FREE_IMG, imageStyle: zoomVW(…) quand tu veux)
   { type: 'page', title: 'Page 3', text: 'Texte de la page 3', 
-    image: '/assets/illustrations/4.png' ,
+    image: 'assets/illustrations/4.png' ,
     imageStyle: zoomVW(70) ,
     overlays: [
       {
@@ -390,7 +390,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',                             // mets le bon ratio si besoin
-    backgroundImage: 'url("/assets/illustrations/perso2.png")',
+    backgroundImage: 'url("assets/illustrations/perso2.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -405,7 +405,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',                             // mets le bon ratio si besoin
-    backgroundImage: 'url("/assets/illustrations/perso3.png")',
+    backgroundImage: 'url("assets/illustrations/perso3.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -421,7 +421,7 @@ Les ténèbres y régnaient comme à la création du monde.`,
 ]
   },
 
-  { type: 'page', title: 'Page 4', text: 'Texte de la page 4', image: '/assets/illustrations/5.png' , imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 4', text: 'Texte de la page 4', image: 'assets/illustrations/5.png' , imageStyle: zoomVW(70), 
 
 overlays: [
   {
@@ -447,7 +447,7 @@ overlays: [
   anchor: 'center',
   class: 'walk-diag', // ou 'walk-diag walk-once' pour une seule fois
   style: {
-    backgroundImage: 'url("/assets/illustrations/paysan.png")',
+    backgroundImage: 'url("assets/illustrations/paysan.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -477,7 +477,7 @@ overlays: [
   anchor: 'center',
   class: 'walk-x', // ou 'walk-x walk-once' pour 1 seule fois
   style: {
-    backgroundImage: 'url("/assets/illustrations/perso5.png")',
+    backgroundImage: 'url("assets/illustrations/perso5.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -503,7 +503,7 @@ overlays: [
   },
 
 
-  { type: 'page', title: 'Page 5', text: 'Texte de la page 5', image: '/assets/illustrations/6&7.png', imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 5', text: 'Texte de la page 5', image: 'assets/illustrations/6&7.png', imageStyle: zoomVW(70), 
 
 overlays: [
   {
@@ -535,7 +535,7 @@ Quel plaisir de ne plus marcher en tâtonnant !
   anchor: 'center',
   class: 'talk',
   style: {
-    backgroundImage: 'url("/assets/illustrations/perso7.png")',
+    backgroundImage: 'url("assets/illustrations/perso7.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -579,7 +579,7 @@ Quel plaisir de ne plus marcher en tâtonnant !
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/arbre1.png")',
+    backgroundImage: 'url("assets/illustrations/arbre1.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -591,7 +591,7 @@ Quel plaisir de ne plus marcher en tâtonnant !
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/lune.png")',
+    backgroundImage: 'url("assets/illustrations/lune.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -606,7 +606,7 @@ Quel plaisir de ne plus marcher en tâtonnant !
    },
 
 
-  { type: 'page', title: 'Page 6', text: 'Texte de la page 6', image: '/assets/illustrations/8.png' , imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 6', text: 'Texte de la page 6', image: 'assets/illustrations/8.png' , imageStyle: zoomVW(70), 
 
 overlays: [
   {
@@ -631,7 +631,7 @@ overlays: [
   anchor: 'center',
   class: 'walk-x', // ou 'walk-x walk-once' pour 1 seule fois
   style: {
-    backgroundImage: 'url("/assets/illustrations/perso8.png")',
+    backgroundImage: 'url("assets/illustrations/perso8.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -653,7 +653,7 @@ overlays: [
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/img8.png")',
+    backgroundImage: 'url("assets/illustrations/img8.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -667,7 +667,7 @@ overlays: [
 ]
 
   },
-  { type: 'page', title: 'Page 7', text: 'Texte de la page 7', image: '/assets/illustrations/9.png' , imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 7', text: 'Texte de la page 7', image: 'assets/illustrations/9.png' , imageStyle: zoomVW(70), 
 
 overlays: [
   {
@@ -696,7 +696,7 @@ la lune sans encombre jusque dans leur pays et l'accrochèrent sur le haut chên
   anchor: 'center',
   class: 'climb-infinite',
   style: {
-    backgroundImage: 'url(/assets/illustrations/perso1-img9.png)',
+    backgroundImage: 'url(assets/illustrations/perso1-img9.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -716,7 +716,7 @@ la lune sans encombre jusque dans leur pays et l'accrochèrent sur le haut chên
   anchor: 'center',
   class: 'walk-x', // ou 'walk-x walk-once' pour 1 seule fois
   style: {
-    backgroundImage: 'url("/assets/illustrations/charrette-lune.png")',
+    backgroundImage: 'url("assets/illustrations/charrette-lune.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -741,7 +741,7 @@ la lune sans encombre jusque dans leur pays et l'accrochèrent sur le haut chên
   },
 
 
-  { type: 'page', title: 'Page 8', text: 'Texte de la page 8', image: '/assets/illustrations/10.png', imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 8', text: 'Texte de la page 8', image: 'assets/illustrations/10.png', imageStyle: zoomVW(70), 
 
 overlays: [
   {
@@ -766,7 +766,7 @@ overlays: [
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/lune.png")',
+    backgroundImage: 'url("assets/illustrations/lune.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -800,7 +800,7 @@ overlays: [
 
 
   },
-  { type: 'page', title: 'Page 9', text: 'Texte de la page 9', image: '/assets/illustrations/11.png', imageStyle: zoomVW(70),
+  { type: 'page', title: 'Page 9', text: 'Texte de la page 9', image: 'assets/illustrations/11.png', imageStyle: zoomVW(70),
 
     overlays: [
       {
@@ -827,7 +827,7 @@ overlays: [
   anchor: 'center',
   // pas besoin d’animation CSS ici, le GIF s’anime tout seul
   style: {
-    backgroundImage: 'url(/assets/illustrations/lutins.gif)', // ← ton GIF
+    backgroundImage: 'url(assets/illustrations/lutins.gif)', // ← ton GIF
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -847,7 +847,7 @@ overlays: [
 
 
 
-  { type: 'page', title: 'Page 10', text: 'Texte de la page 10', image: '/assets/illustrations/10.png', imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 10', text: 'Texte de la page 10', image: 'assets/illustrations/10.png', imageStyle: zoomVW(70), 
 
     overlays: [
   {
@@ -872,7 +872,7 @@ overlays: [
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/lune.png")',
+    backgroundImage: 'url("assets/illustrations/lune.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -905,7 +905,7 @@ overlays: [
   style: {
     transform: 'translate(-50%, -50%)',
     aspectRatio: '1 / 1',
-    backgroundImage: 'url("/assets/illustrations/perso-img9.png")',
+    backgroundImage: 'url("assets/illustrations/perso-img9.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -917,7 +917,7 @@ overlays: [
 ]
 
   },
-  { type: 'page', title: 'Page 11', text: 'Texte de la page 11', image: '/assets/illustrations/12.2.png', imageStyle: zoomVW(70), 
+  { type: 'page', title: 'Page 11', text: 'Texte de la page 11', image: 'assets/illustrations/12.2.png', imageStyle: zoomVW(70), 
 
     overlays: [
       {
@@ -944,7 +944,7 @@ overlays: [
   anchor: 'center',
   class: 'anim-bush-lr',
   style: {
-    backgroundImage: 'url(/assets/illustrations/buisson1.png)',
+    backgroundImage: 'url(assets/illustrations/buisson1.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -961,7 +961,7 @@ overlays: [
   anchor: 'center',
   class: 'anim-bush-lr',
   style: {
-    backgroundImage: 'url(/assets/illustrations/buisson2.png)',
+    backgroundImage: 'url(assets/illustrations/buisson2.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -986,7 +986,7 @@ overlays: [
 
     ]
   },
-  { type: 'page', title: 'Page 12', text: 'Texte de la page 12', image: '/assets/illustrations/13.png', imageStyle: zoomVW(70),  
+  { type: 'page', title: 'Page 12', text: 'Texte de la page 12', image: 'assets/illustrations/13.png', imageStyle: zoomVW(70),  
 
     overlays: [
       {
@@ -1103,7 +1103,7 @@ overlays: [
   anchor: 'center',
   class: 'anim-tree',
   style: {
-    backgroundImage: 'url(/assets/illustrations/arbre3.png)',
+    backgroundImage: 'url(assets/illustrations/arbre3.png)',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -1121,7 +1121,7 @@ overlays: [
   },
 
 
-  { type: 'page', title: 'Page 13', text: 'Texte de la page 13', image: '/assets/illustrations/page-13.jpg', imageStyle: zoomVW(70),  
+  { type: 'page', title: 'Page 13', text: 'Texte de la page 13', image: 'assets/illustrations/page-13.jpg', imageStyle: zoomVW(70),  
 
     overlays: [
       {
@@ -1146,11 +1146,11 @@ overlays: [
   },
 
 
-  { type: 'page', title: 'Page 14', text: 'Texte de la page 14', image: '/assets/illustrations/page-14.jpg' },
-  { type: 'page', title: 'Page 15', text: 'Texte de la page 15', image: '/assets/illustrations/page-15.jpg' },
-  { type: 'page', title: 'Page 16', text: 'Texte de la page 16', image: '/assets/illustrations/page-16.jpg' },
-  { type: 'page', title: 'Page 17', text: 'Texte de la page 17', image: '/assets/illustrations/page-17.jpg' },
-  { type: 'page', title: 'Page 18', text: 'Texte de la page 18', image: '/assets/illustrations/page-18.jpg' },
+  { type: 'page', title: 'Page 14', text: 'Texte de la page 14', image: 'assets/illustrations/page-14.jpg' },
+  { type: 'page', title: 'Page 15', text: 'Texte de la page 15', image: 'assets/illustrations/page-15.jpg' },
+  { type: 'page', title: 'Page 16', text: 'Texte de la page 16', image: 'assets/illustrations/page-16.jpg' },
+  { type: 'page', title: 'Page 17', text: 'Texte de la page 17', image: 'assets/illustrations/page-17.jpg' },
+  { type: 'page', title: 'Page 18', text: 'Texte de la page 18', image: 'assets/illustrations/page-18.jpg' },
 
-  { type: 'back', title: 'Dernière de couverture', text: 'Noms étudiants — logos', image: '/assets/illustrations/back.jpg' }
+  { type: 'back', title: 'Dernière de couverture', text: 'Noms étudiants — logos', image: 'assets/illustrations/back.jpg' }
 ];
