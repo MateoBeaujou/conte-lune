@@ -38,7 +38,7 @@ body{ font-family: var(--font-sans); }
     inset 0 0 var(--ls-blur-inset, 0px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-inset-alpha, 0%), transparent),
     0 0 0 var(--ls-glow, 14px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-glow-alpha, 18%), transparent),
     0 0 var(--ls-blur, 18px) color-mix(in oklab, var(--ls-fill, #EDCB6A) var(--ls-blur-alpha, 55%), transparent);
-  animation: lsPulse var(--ls-speed, 1600ms) var(--ls-ease, ease-in-out) var(--ls-delay, 0ms) infinite ;
+  animation: lsPulse var(--ls-speed, 1600ms) var(--ls-ease, ease-in-out) var(--ls-delay, 0ms) infinite;
 }
 
 @keyframes lsPulse {
@@ -532,4 +532,62 @@ body{ font-family: var(--font-sans); }
 
 @media (prefers-reduced-motion: reduce) {
   .round-dance-3d { animation: none !important; }
+}
+/* Même respiration que ton halo de lune */
+@keyframes haloBreath {
+  from { opacity: var(--halo-alpha, .35); filter: blur(var(--halo-blur, 8px)); }
+  to   { opacity: calc(var(--halo-alpha, .35) + .15); filter: blur(calc(var(--halo-blur, 8px) * 1.15)); }
+}
+
+/* Conteneur demi-cercle (ne montre que la moitié haute du disque) */
+.light-halo-arc {
+  position: relative;
+  width: var(--halo-size, 12vw);
+  height: calc(var(--halo-size, 12vw) / 2);
+  border-radius: 100% 100% 0 0 / 100% 100% 0 0; /* demi-disque haut */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Le halo “lune” original, mais rendu dans un cercle entier… */
+.light-halo-arc::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(-0.5 * var(--halo-size, 12vw)); /* centre du cercle pile sur le bas du conteneur */
+  width: var(--halo-size, 12vw);
+  height: var(--halo-size, 12vw);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  /* …avec la même couronne douce que ton halo rond */
+  background:
+    radial-gradient(closest-side,
+      rgba(237,203,106,0) 58%,
+      rgba(237,203,106,.28) 78%,
+      rgba(237,203,106,0) 92%);
+  /* option : épaisseur de l’anneau (si tu veux le rendre plus fin/épais) */
+  -webkit-mask: radial-gradient(circle,
+    transparent calc(50% - var(--halo-thick, 10px)),
+    #000       calc(50% - var(--halo-thick, 10px)),
+    #000 51%,
+    transparent 52%);
+          mask: radial-gradient(circle,
+    transparent calc(50% - var(--halo-thick, 10px)),
+    #000       calc(50% - var(--halo-thick, 10px)),
+    #000 51%,
+    transparent 52%);
+  animation: haloBreath var(--halo-speed, 2600ms) ease-in-out infinite alternate;
+  filter: blur(var(--halo-blur, 8px));
+  opacity: var(--halo-alpha, .35);
+}
+
+/* (facultatif) Rotation de l’arc si tu veux l’orienter autrement */
+.halo-arc-rotate {
+  transform: rotate(var(--halo-arc-angle, 0deg));
+  transform-origin: center;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .light-halo-arc::before { animation: none !important; }
 }

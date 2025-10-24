@@ -461,7 +461,7 @@ overlays: [
     /* trajectoire & vitesse */
     '--dx': '-28vw',   // ← droite → gauche (NEGATIF)
     '--dy': '12vw',    // ↓ descend (POSITIF)
-    '--dur': '10s',    // plus grand = plus lent
+    '--dur': '30s',    // plus grand = plus lent
     '--delay': '0ms',
     '--iter': '1',
     animationFillMode: 'forwards',
@@ -553,13 +553,26 @@ Quel plaisir de ne plus marcher en tâtonnant !
 },
 
 {
-  x: 65, y: 50, w: 0, text: '',
-  anchor: 'center',
-  class: 'moon-circle-halo',
+  // Place le coin haut-gauche du halo à (x%, y%)
+  x: 58,                   // % depuis la gauche
+  y: 38,                   // % depuis le haut
+  w: 0,                    // on n’utilise pas w, la taille vient de --lh-size
+  text: '',
+  anchor: 'topleft',       // IMPORTANT: pas de transform de centrage
+  class: 'lunar-halo-boost',
   style: {
-    left: '65%', top: '50%',            // positionne le halo
-    transform: 'translate(-50%, -50%)', // centre le cercle
-    zIndex: '10'
+    // Taille & rendu (tu peux mettre des px si tu préfères)
+    '--lh-size': '10vw',
+    '--lh-speed': '1900ms',
+    '--lh-blur': '18px',
+    '--lh-op-min': '.65',
+    '--lh-op-max': '.95',
+    '--lh-glow-blur': '20px',
+    '--lh-glow-alpha': '.9',
+    
+
+    // Toujours au-dessus du fond
+    zIndex: '9'
   }
 },
 { x: 65, y: 50, w: 60, text: '', 
@@ -597,7 +610,7 @@ Quel plaisir de ne plus marcher en tâtonnant !
 
 overlays: [
   {
-    x: 55,
+    x: 65,
     y: 25,
     text: `Nous irons chercher un cheval et une charrette et nous emporterons la lune avec nous. Ils n'auront qu'à s'en acheter une autre.
 `,
@@ -699,7 +712,7 @@ la lune sans encombre jusque dans leur pays et l'accrochèrent sur le haut chên
 },
 
 {
-  x: 20, y: 77, w: 40, text: '',
+  x:15, y: 77, w: 40, text: '',
   anchor: 'center',
   class: 'walk-x', // ou 'walk-x walk-once' pour 1 seule fois
   style: {
@@ -840,8 +853,8 @@ overlays: [
   {
     x: 25,
     y: 15,
-    text: `Et tout le monde se réjouit, les jeunes et les vieux, de cette nouvelle lampe dont la lumière pâle se 
-    répandait dans les champs et dans les prés, et jusque dans les cuisines et les chambrettes.
+    text: `Notre quatuor de voyageurs prit la lune en charge. 
+    Ils ajoutaient de l'huile, nettoyaient la mèche et percevaient pour leur travail un écu par semaine.
 `,
     anchor: 'center',
     w: 40,
@@ -888,15 +901,251 @@ overlays: [
     zIndex: '6'
   }
 },
-
+ { x: 50, y: 84.2, w: 35, text: '', 
+  style: {
+    transform: 'translate(-50%, -50%)',
+    aspectRatio: '1 / 1',
+    backgroundImage: 'url("/assets/illustrations/perso-img9.png")',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    zIndex: '7'
+  }
+},
 
 
 ]
 
   },
-  { type: 'page', title: 'Page 11', text: 'Texte de la page 11', image: '/assets/illustrations/page-11.jpg' },
-  { type: 'page', title: 'Page 12', text: 'Texte de la page 12', image: '/assets/illustrations/page-12.jpg' },
-  { type: 'page', title: 'Page 13', text: 'Texte de la page 13', image: '/assets/illustrations/page-13.jpg' },
+  { type: 'page', title: 'Page 11', text: 'Texte de la page 11', image: '/assets/illustrations/12.2.png', imageStyle: zoomVW(70), 
+
+    overlays: [
+      {
+        x: 25,
+        y: 25,
+        text: `Mais le temps passa et ils devinrent vieux et grisonnants, 
+        et lorsque l'un d'eux tomba malade et sentit que ses jours étaient comptés, il exigea qu'on mit dans son cercueil un quart de la lune en tant que sa propriété.
+        Après sa mort, le maire grimpa sur l'arbre, découpa un quart de la lune avec des ciseaux de jardinier et on le mit dans le cercueil du défunt. La lune perdit 
+        un peu de son éclat, mais pour le moment cela ne se voyait pas trop.
+`,
+        anchor: 'center',
+        w: 40,
+        style: {
+          zIndex: '8',
+          color: '#fff',
+        lineHeight: '1.4',
+        background: 'rgba(0,0,0,0.55)',  // fond sombre transluscent
+        padding: '12px 16px',
+        borderRadius: '10px'
+        }
+      },
+      {
+  x: 0, y: 68, w: 23, text: '',
+  anchor: 'center',
+  class: 'anim-bush-lr',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/buisson1.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // centre l'overlay
+    aspectRatio: '1 / 1',               // ajuste si ton PNG n'est pas carré
+    '--shake-duration': '2500ms',        // vitesse
+    '--shake-x': '-1.6%',               // amplitude vers la gauche (le reste est relatif)
+    '--shake-delay': '0ms',
+    zIndex: '8'
+  }
+},
+{
+  x: 78, y: 66, w: 23, text: '',
+  anchor: 'center',
+  class: 'anim-bush-lr',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/buisson2.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // centre l'overlay
+    aspectRatio: '1 / 1',               // ajuste si ton PNG n'est pas carré
+    '--shake-duration': '2500ms',        // vitesse
+    '--shake-x': '-1.6%',               // amplitude vers la gauche (le reste est relatif)
+    '--shake-delay': '180ms',
+    zIndex: '8',
+     
+  }
+},
+
+     
+
+
+
+
+
+
+
+
+    ]
+  },
+  { type: 'page', title: 'Page 12', text: 'Texte de la page 12', image: '/assets/illustrations/13.png', imageStyle: zoomVW(70),  
+
+    overlays: [
+      {
+        x: 25,
+        y: 25,
+        text: `Quelque temps après, le deuxième décéda on l'enterra avec le deuxième quart de la lune, et la lumière baissa un peu plus. Et elle faiblit encore lorsque 
+        le troisième mourut et emporta, lui aussi, son quart de lune avec lui. Et dès qu'ils enterrèrent le quatrième, l'obscurité totale d'autrefois envahit à nouveau 
+        tout le pays. Et chaque fois que les gens sortaient de chez eux sans leur lanterne, ils se cognaient les uns aux autres.
+`,
+        anchor: 'center',
+        w: 40,
+        style: {
+          zIndex: '8',
+          color: '#fff',
+        lineHeight: '1.4',
+        background: 'rgba(0,0,0,0.55)',  // fond sombre transluscent
+        padding: '12px 16px',
+        borderRadius: '10px'
+        }
+      },
+
+      {
+  // Place le coin haut-gauche du halo à (x%, y%)
+  x: 5,                   // % depuis la gauche
+  y: 74,                   // % depuis le haut
+  w: 0,                    // on n’utilise pas w, la taille vient de --lh-size
+  text: '',
+  anchor: 'topleft',       // IMPORTANT: pas de transform de centrage
+  class: 'lunar-halo-boost',
+  style: {
+    // Taille & rendu (tu peux mettre des px si tu préfères)
+    '--lh-size': '5vw',
+    '--lh-speed': '1600ms',
+    '--lh-blur': '18px',
+    '--lh-op-min': '.65',
+    '--lh-op-max': '.95',
+    '--lh-glow-blur': '20px',
+    '--lh-glow-alpha': '.9',
+
+    // Toujours au-dessus du fond
+    zIndex: '6'
+  }
+},
+{
+  // Place le coin haut-gauche du halo à (x%, y%)
+  x: 30,                   // % depuis la gauche
+  y: 74,                   // % depuis le haut
+  w: 0,                    // on n’utilise pas w, la taille vient de --lh-size
+  text: '',
+  anchor: 'topleft',       // IMPORTANT: pas de transform de centrage
+  class: 'lunar-halo-boost',
+  style: {
+    // Taille & rendu (tu peux mettre des px si tu préfères)
+    '--lh-size': '5vw',
+    '--lh-speed': '1700ms',
+    '--lh-blur': '18px',
+    '--lh-op-min': '.65',
+    '--lh-op-max': '.95',
+    '--lh-glow-blur': '20px',
+    '--lh-glow-alpha': '.9',
+
+    // Toujours au-dessus du fond
+    zIndex: '6'
+  }
+},
+{
+  // Place le coin haut-gauche du halo à (x%, y%)
+  x: 50,                   // % depuis la gauche
+  y: 74,                   // % depuis le haut
+  w: 0,                    // on n’utilise pas w, la taille vient de --lh-size
+  text: '',
+  anchor: 'topleft',       // IMPORTANT: pas de transform de centrage
+  class: 'lunar-halo-boost',
+  style: {
+    // Taille & rendu (tu peux mettre des px si tu préfères)
+    '--lh-size': '5vw',
+    '--lh-speed': '1800ms',
+    '--lh-blur': '18px',
+    '--lh-op-min': '.65',
+    '--lh-op-max': '.95',
+    '--lh-glow-blur': '20px',
+    '--lh-glow-alpha': '.9',
+
+    // Toujours au-dessus du fond
+    zIndex: '6'
+  }
+},
+
+{
+  // Place le coin haut-gauche du halo à (x%, y%)
+  x: 70,                   // % depuis la gauche
+  y: 74,                   // % depuis le haut
+  w: 0,                    // on n’utilise pas w, la taille vient de --lh-size
+  text: '',
+  anchor: 'topleft',       // IMPORTANT: pas de transform de centrage
+  class: 'lunar-halo-boost',
+  style: {
+    // Taille & rendu (tu peux mettre des px si tu préfères)
+    '--lh-size': '5vw',
+    '--lh-speed': '1900ms',
+    '--lh-blur': '18px',
+    '--lh-op-min': '.65',
+    '--lh-op-max': '.95',
+    '--lh-glow-blur': '20px',
+    '--lh-glow-alpha': '.9',
+    
+
+    // Toujours au-dessus du fond
+    zIndex: '6'
+  }
+},
+{
+  x: 65, y: 8.2, w: 40, text: '',
+  anchor: 'center',
+  class: 'anim-tree',
+  style: {
+    backgroundImage: 'url(/assets/illustrations/arbre3.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    transform: 'translate(-50%, -50%)', // car anchor center
+    aspectRatio: '2 / 3',               // ← mets le vrai ratio de ton PNG (ex: 2:3)
+    display: 'block',
+    '--sway-deg': '1deg',
+    '--sway-duration': '3000ms',
+    '--shake-delay': '2800ms',
+    zIndex: '6'
+  }
+},
+
+    ]
+  },
+
+
+  { type: 'page', title: 'Page 13', text: 'Texte de la page 13', image: '/assets/illustrations/page-13.jpg', imageStyle: zoomVW(70),  
+
+    overlays: [
+      {
+        x: 55,
+        y: 25,
+        text: `
+`,
+        anchor: 'center',
+        w: 40,
+        style: {
+          zIndex: '8',
+          color: '#fff',
+        lineHeight: '1.4',
+        background: 'rgba(0,0,0,0.55)',  // fond sombre transluscent
+        padding: '12px 16px',
+        borderRadius: '10px'
+        }
+      },
+
+      
+    ]
+  },
+
+
   { type: 'page', title: 'Page 14', text: 'Texte de la page 14', image: '/assets/illustrations/page-14.jpg' },
   { type: 'page', title: 'Page 15', text: 'Texte de la page 15', image: '/assets/illustrations/page-15.jpg' },
   { type: 'page', title: 'Page 16', text: 'Texte de la page 16', image: '/assets/illustrations/page-16.jpg' },
